@@ -3,107 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunPink - Urgence Harcèlement</title>
+    <title>RunPink - Live</title>
     <style>
-        /* Base Identité Visuelle RunPink */
-        body {
-            background-color: #fdf5f3;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-            color: #333;
-        }
-        .card {
-            padding: 40px 20px;
-            border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-            max-width: 450px;
-            background: white;
-            position: relative;
-        }
+        /* Base Identité Visuelle RunPink (fdf5f3 background) */
+        body { background-color: #fdf5f3; font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; color: #333; }
+        .card { padding: 40px 20px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); max-width: 450px; background: white; }
        
-        .label {
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
+        /* Label d'en-tête (discret) */
+        .label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }
        
-        /* Style du NOUVEAU Compte à Rebours (Urgence) */
-        .timer-label {
-            font-size: 1.15rem;
-            color: #E91E63;
-            font-weight: 800;
-            margin-bottom: 5px;
+        /* 1. COMPTE À REBOURS (Optionnel, plus petit et au-dessus) */
+        .timer-box { font-size: 1rem; color: #666; margin-bottom: 10px; font-weight: 600; }
+        #timer { color: #E91E63; font-weight: 800; font-size: 1.1rem; font-variant-numeric: tabular-nums; margin-left: 3px; }
+
+        /* 2. CHIFFRE GLOBAL (ÉNORME ET VISIBLE) */
+        .total-container {
+            font-size: 5.5rem; font-weight: 900;
+            background: linear-gradient(45deg, #FF4081, #E91E63);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin: 5px 0; letter-spacing: -3px; font-variant-numeric: tabular-nums;
         }
-        .timer-display {
-            font-size: 4.5rem;
-            font-weight: 900;
-            color: #333;
-            margin-bottom: 25px;
-            font-variant-numeric: tabular-nums; /* Pour éviter que les chiffres ne sautent */
-        }
+
+        /* Texte descriptif */
+        .sub { font-size: 1.2rem; color: #333; font-weight: 700; line-height: 1.4; margin-top: 15px; }
+        .slogan { font-size: 1.2rem; color: #E91E63; font-weight: 800; margin-top: 25px; font-style: italic; border-top: 1px solid #eee; padding-top: 15px; }
        
-        /* Stats globales (plus discrètes en dessous) */
-        .sub {
-            font-size: 1.1rem;
-            color: #666;
-            font-weight: 600;
-            line-height: 1.5;
-            border-top: 1px dashed #eee;
-            padding-top: 20px;
-        }
-        #total-text { font-weight: 900; color: #E91E63; font-size: 1.3rem; }
-       
-        /* Citation / Slogan */
-        .slogan {
-            font-size: 1.25rem;
-            color: #E91E63;
-            font-weight: 800;
-            margin-top: 25px;
-            font-style: italic;
-        }
-       
-        /* Style du Bouton MODIFIÉ : Rose Pâle RunPink */
-        .btn {
-            margin-top: 30px;
-            display: inline-block;
-            padding: 16px 32px;
-            background-color: #F8BBD0; /* NOUVELLE COULEUR : Rose Pâle */
-            color: #E91E63; /* Texte en Rose Foncé pour le contraste */
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 0.95rem;
-            box-shadow: 0 8px 20px rgba(248, 187, 208, 0.4);
-            transition: background-color 0.2s;
-        }
-        .btn:hover { background-color: #F48FB1; /* Rose un peu plus soutenu au survol */ }
-       
-        /* Note de Transparence */
-        .transparency {
-            font-size: 9px;
-            color: rgba(0, 0, 0, 0.3);
-            margin-top: 20px;
-            font-style: italic;
-        }
+        /* Bouton Rose Pâle (Identité image_6.png) */
+        .btn { margin-top: 30px; display: inline-block; padding: 16px 32px; background-color: #F8BBD0; color: #E91E63; text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 0.9rem; }
+        .transparency { font-size: 9px; color: rgba(0,0,0,0.3); margin-top: 20px; font-style: italic; }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="label">Situation en France • Temps Réel</div>
+        <div class="label">SITUATION EN FRANCE • TEMPS RÉEL</div>
        
-        <div class="timer-label">Prochain harcèlement de rue dans :</div>
-        <div id="timer" class="timer-display">00:00</div>
+        <div class="timer-box">Prochain harcèlement dans :<span id="timer">00:00</span></div>
+       
+        <div class="total-container" id="total-global">0</div>
        
         <div class="sub">
-            Depuis le début de l'année, déjà <span id="total-text">...</span> femmes ont subi un harcèlement en courant.
+            Femmes ont subi un harcèlement en courant depuis le 1er janvier.
         </div>
        
         <div class="slogan">« La liberté de courir ne devrait pas être une option »</div>
@@ -114,35 +53,32 @@
     </div>
 
     <script>
-        // Configuration : Fréquence du harcèlement sur la niche.
-        // Base associative de 1 agression toutes les 15-20 minutes
-        const frequencyInSecondsLong = 1061; // Ex: ~21 minutes entre chaque agression
+        // Configuration : Fréquence du harcèlement (1 toutes les ~21 mins)
+        const frequencySecondsLong = 1261;
 
-        function updateCountdown() {
-            const startOfYearLong = new Date('2026-01-01T00:00:00').getTime();
+        function update() {
+            const startYearLong = new Date('2026-01-01T00:00:00').getTime();
             const nowLong = Date.now();
-            const elapsedSecondsLong = (nowLong - startOfYearLong) / 1000;
+            const elapsedLong = (nowLong - startYearLong) / 1000;
            
-            // Calcul du total depuis le début de l'année (Statistique globale)
-            const totalHarassementsLong = Math.floor(elapsedSecondsLong / frequencyInSecondsLong);
-            document.getElementById('total-text').innerText = totalHarassementsLong.toLocaleString('fr-FR');
+            // Calcul et affichage du TOTAL GLOBAL (Le chiffre énorme)
+            const totalHarassementsLong = Math.floor(elapsedLong / frequencySecondsLong);
+            document.getElementById('total-global').innerText = totalHarassementsLong.toLocaleString('fr-FR');
 
-            // Calcul du compte à rebours (temps restant avant le prochain)
-            const secondsSinceLastLong = elapsedSecondsLong % frequencyInSecondsLong;
-            const remainingSecondsLong = Math.floor(frequencyInSecondsLong - secondsSinceLastLong);
+            // Calcul et affichage du COMPTE À REBOURS (Secondaire)
+            const secondsSinceLastLong = elapsedLong % frequencySecondsLong;
+            const remainingSecondsLong = Math.floor(frequencySecondsLong - secondsSinceLastLong);
            
-            // Formatage MM:SS (Minutes:Secondes)
             const minutesLong = Math.floor(remainingSecondsLong / 60);
             const secondsLong = remainingSecondsLong % 60;
            
-            // Mise à jour de l'affichage avec ajout d'un "0" pour l'esthétique
             document.getElementById('timer').innerText =
                 (minutesLong < 10 ? '0' : '') + minutesLong + ":" + (secondsLong < 10 ? '0' : '') + secondsLong;
         }
 
-        // Mise à jour chaque seconde pour le défilé du temps
-        setInterval(updateCountdown, 1000);
-        updateCountdown(); // Mise à jour initiale immédiate
+        // Mise à jour chaque seconde pour la fluidité
+        setInterval(update, 1000);
+        update();
     </script>
 </body>
 </html>
