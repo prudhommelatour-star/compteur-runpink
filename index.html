@@ -9,11 +9,12 @@
         body { background-color: #fdf5f3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; color: #333; }
         .card { padding: 40px 20px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); max-width: 450px; position: relative; }
        
-        /* Titre clair, sans mention technique */
-        .label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; font-weight: bold; }
+        .label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold; }
        
         /* Style du compteur Jackpot (Urgence visuelle) */
         .counter-container { font-size: 5rem; font-weight: 900; background: linear-gradient(45deg, #FF4081, #E91E63); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 5px 0; letter-spacing: -2px; font-variant-numeric: tabular-nums; }
+       
+        /* Les décimales défilent plus petit pour l'effet "Jackpot" */
         .decimals { font-size: 2.8rem; opacity: 0.7; }
        
         .sub { font-size: 1.25rem; color: #444; font-weight: 700; line-height: 1.5; margin-top: 15px; }
@@ -22,16 +23,16 @@
         .btn { margin-top: 35px; display: inline-block; padding: 16px 32px; background-color: #E91E63; color: white; text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3); transition: transform 0.2s; }
         .btn:hover { transform: translateY(-2px); }
        
-        /* Style de la transparence statistique (plus discret) */
-        .transparency { font-size: 10px; color: rgba(0, 0, 0, 0.3); margin-top: 20px; font-style: italic; max-width: 80%; margin-left: auto; margin-right: auto; }
+        /* Style de la transparence statistique */
+        .transparency { font-size: 10px; color: rgba(0, 0, 0, 0.3); margin-top: 15px; font-style: italic; max-width: 80%; margin-left: auto; margin-right: auto; }
        
-        /* Style de la Citation Slogan RunPink */
+        /* Style du Slogan RunPink (Retrait "+", ajout guillemets français) */
         .slogan { font-size: 1.3rem; color: #E91E63; font-weight: 800; margin-top: 25px; line-height: 1.3; border-top: 1px solid #eee; padding-top: 15px; font-style: italic; }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="label">Situation en France • Harcèlement des Coureuses</div>
+        <div class="label">Situation en France • Temps Réel (Harcèlement des coureuses)</div>
        
         <div class="counter-container">
             <span id="integer">0</span><span class="decimals">,<span id="jackpot">0000</span></span>
@@ -52,27 +53,28 @@
         // Logique de calcul et défilement temps réel (Effet Jackpot)
         function update() {
             // Configuration de la simulation (Adaptée pour 2026)
-            const startOfYearRun = new Date('2026-01-01T00:00:00').getTime();
-            const nowRun = Date.now();
-            const elapsedSecondsRun = (nowRun - startOfYearRun) / 1000;
+            const startOfYearRunLong = new Date('2026-01-01T00:00:00').getTime();
+            const nowRunLong = Date.now();
+            const elapsedSecondsRunLong = (nowRunLong - startOfYearRunLong) / 1000;
            
             // Taux : Estimation d'environ 1 agression toutes les 15-20 minutes sur la niche
-            const ratePerSecondRun = 0.0007927; // Base : ~25,000 agressions/an estimées sur la niche des coureuses
+            const ratePerSecondRunLong = 0.0007927; // Base : ~25,000 agressions/an estimées sur la niche des coureuses
            
-            const preciseCountRun = elapsedSecondsRun * ratePerSecondRun;
+            const preciseCountRunLong = elapsedSecondsRunLong * ratePerSecondRunLong;
            
             // Partie entière
-            const integerPartRun = Math.floor(preciseCountRun);
+            const integerPartRunLong = Math.floor(preciseCountRunLong);
            
             // Partie décimale (le Jackpot) : 4 chiffres défilent très vite
-            const decimalPartRun = (preciseCountRun % 1).toFixed(4).substring(2);
+            // On utilise toFixed(4) pour avoir 4 décimales défilantes
+            const decimalPartRunLong = (preciseCountRunLong % 1).toFixed(4).substring(2);
            
-            // Mise à jour visuelle
-            document.getElementById('integer').innerText = integerPartRun.toLocaleString('fr-FR');
-            document.getElementById('jackpot').innerText = decimalPartRun;
+            // Mise à jour visuelle du gros compteur
+            document.getElementById('integer').innerText = integerPartRunLong.toLocaleString('fr-FR');
+            document.getElementById('jackpot').innerText = decimalPartRunLong;
            
             // Mise à jour du nombre dans le message principal
-            document.getElementById('total-text').innerText = integerPartRun.toLocaleString('fr-FR');
+            document.getElementById('total-text').innerText = integerPartRunLong.toLocaleString('fr-FR');
         }
 
         // Intervalle très court pour l'effet défilement Jackpot (50ms)
