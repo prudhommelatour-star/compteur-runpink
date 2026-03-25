@@ -3,70 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunPink - Live</title>
+    <title>RunPink - Urgence Harcèlement</title>
     <style>
-        body { background-color: #fdf5f3; font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; color: #333; }
-        .card { padding: 40px 20px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); max-width: 450px; background: white; }
-        .label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; font-weight: bold; }
-       
-        /* Conteneur du Compteur pour forcer l'alignement */
-        .counter-box {
-            font-size: 4.8rem; font-weight: 900;
-            background: linear-gradient(45deg, #FF4081, #E91E63);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin: 10px 0; font-variant-numeric: tabular-nums;
-            display: flex; justify-content: center; align-items: baseline;
+        /* Base Identité Visuelle RunPink */
+        body {
+            background-color: #fdf5f3;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #333;
         }
-        .decimals { font-size: 2.5rem; opacity: 0.8; margin-left: 2px; }
-
-        .sub { font-size: 1.2rem; color: #444; font-weight: 700; line-height: 1.5; margin-top: 20px; }
-        .slogan { font-size: 1.2rem; color: #E91E63; font-weight: 800; margin-top: 25px; font-style: italic; border-top: 1px solid #eee; padding-top: 15px; }
-        .btn { margin-top: 30px; display: inline-block; padding: 16px 32px; background-color: #E91E63; color: white; text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 0.9rem; }
-        .transparency { font-size: 9px; color: rgba(0,0,0,0.3); margin-top: 20px; font-style: italic; }
+        .card {
+            padding: 40px 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            max-width: 450px;
+            background: white;
+            position: relative;
+        }
+       
+        .label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+       
+        /* Style du NOUVEAU Compte à Rebours (Urgence) */
+        .timer-label {
+            font-size: 1.15rem;
+            color: #E91E63;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .timer-display {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: #333;
+            margin-bottom: 25px;
+            font-variant-numeric: tabular-nums; /* Pour éviter que les chiffres ne sautent */
+        }
+       
+        /* Stats globales (plus discrètes en dessous) */
+        .sub {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 600;
+            line-height: 1.5;
+            border-top: 1px dashed #eee;
+            padding-top: 20px;
+        }
+        #total-text { font-weight: 900; color: #E91E63; font-size: 1.3rem; }
+       
+        /* Citation / Slogan */
+        .slogan {
+            font-size: 1.25rem;
+            color: #E91E63;
+            font-weight: 800;
+            margin-top: 25px;
+            font-style: italic;
+        }
+       
+        /* Style du Bouton MODIFIÉ : Rose Pâle RunPink */
+        .btn {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 16px 32px;
+            background-color: #F8BBD0; /* NOUVELLE COULEUR : Rose Pâle */
+            color: #E91E63; /* Texte en Rose Foncé pour le contraste */
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(248, 187, 208, 0.4);
+            transition: background-color 0.2s;
+        }
+        .btn:hover { background-color: #F48FB1; /* Rose un peu plus soutenu au survol */ }
+       
+        /* Note de Transparence */
+        .transparency {
+            font-size: 9px;
+            color: rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="label">SITUATION EN FRANCE • TEMPS RÉEL</div>
+        <div class="label">Situation en France • Temps Réel</div>
        
-        <div class="counter-box">
-            <span id="integer">0</span><span class="decimals">,<span id="jackpot">0000</span></span>
-        </div>
+        <div class="timer-label">Prochain harcèlement de rue dans :</div>
+        <div id="timer" class="timer-display">00:00</div>
        
         <div class="sub">
-            Depuis le début de l'année, déjà <span id="total-text" style="color:#E91E63">...</span> femmes ont subi un harcèlement en courant en France.
+            Depuis le début de l'année, déjà <span id="total-text">...</span> femmes ont subi un harcèlement en courant.
         </div>
        
         <div class="slogan">« La liberté de courir ne devrait pas être une option »</div>
        
-        <a href="https://www.instagram.com/runpink_app" class="btn">REJOINDRE LE MOUVEMENT</a>
+        <a href="https://votre-ulule-ici.com" class="btn">REJOINDRE LE MOUVEMENT</a>
        
-        <div class="transparency">* Estimation statistique approximative basée sur les taux de prévalence associative (chiffre noir inclus).</div>
+        <div class="transparency">* Estimation statistique approximative basée sur une fréquence moyenne de harcèlement en milieu sportif (niche coureuses).</div>
     </div>
 
     <script>
-        function update() {
-            const start = new Date('2026-01-01T00:00:00').getTime();
-            const now = Date.now();
-            const elapsed = (now - start) / 1000;
+        // Configuration : Fréquence du harcèlement sur la niche.
+        // Base associative de 1 agression toutes les 15-20 minutes
+        const frequencyInSecondsLong = 1061; // Ex: ~21 minutes entre chaque agression
+
+        function updateCountdown() {
+            const startOfYearLong = new Date('2026-01-01T00:00:00').getTime();
+            const nowLong = Date.now();
+            const elapsedSecondsLong = (nowLong - startOfYearLong) / 1000;
            
-            // Taux niche coureuses (~25k/an)
-            const rate = 0.0007927;
-            const precise = elapsed * rate;
+            // Calcul du total depuis le début de l'année (Statistique globale)
+            const totalHarassementsLong = Math.floor(elapsedSecondsLong / frequencyInSecondsLong);
+            document.getElementById('total-text').innerText = totalHarassementsLong.toLocaleString('fr-FR');
+
+            // Calcul du compte à rebours (temps restant avant le prochain)
+            const secondsSinceLastLong = elapsedSecondsLong % frequencyInSecondsLong;
+            const remainingSecondsLong = Math.floor(frequencyInSecondsLong - secondsSinceLastLong);
            
-            const integerPart = Math.floor(precise);
-            const decimalPart = (precise % 1).toFixed(4).substring(2);
+            // Formatage MM:SS (Minutes:Secondes)
+            const minutesLong = Math.floor(remainingSecondsLong / 60);
+            const secondsLong = remainingSecondsLong % 60;
            
-            document.getElementById('integer').innerText = integerPart.toLocaleString('fr-FR');
-            document.getElementById('jackpot').innerText = decimalPart;
-            document.getElementById('total-text').innerText = integerPart.toLocaleString('fr-FR');
+            // Mise à jour de l'affichage avec ajout d'un "0" pour l'esthétique
+            document.getElementById('timer').innerText =
+                (minutesLong < 10 ? '0' : '') + minutesLong + ":" + (secondsLong < 10 ? '0' : '') + secondsLong;
         }
 
-        // 30ms pour un défilement ultra-fluide des décimales
-        setInterval(update, 30);
-        update();
+        // Mise à jour chaque seconde pour le défilé du temps
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Mise à jour initiale immédiate
     </script>
 </body>
 </html>
-
- 
